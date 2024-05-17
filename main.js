@@ -98,7 +98,7 @@
             break;
           } else if (health.includes(i)) {
             if(i.toLowerCase()=="hydrogenated oil"){
-                healthissue = "Chloestrol;
+                healthissue = "Chloestrol";
             }
             else if(i.toLowerCase()=="sugar"){
             healthissue = "Diabetes;
