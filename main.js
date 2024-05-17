@@ -88,15 +88,15 @@
         let tess = recogtext.split(',');
         tess[0] = tess[0].split(':')[1];
         console.log(tess);
-        let allergens;
-        let healthissue;
+        let allergens ='';
+        let healthissue='';
         for (let i of tess) {
           i = i.trim();
           if (unsafe.includes(i.toLowerCase())) {
             console.log(`Unsafe ingredients ${i} used`);
             allg = false;
             break;
-          } else if (health.includes(i)) {
+          } else if (health.includes(i.toLowerCase())) {
             if(i.toLowerCase()=="hydrogenated oil"){
                 healthissue = "Chloestrol";
             }
