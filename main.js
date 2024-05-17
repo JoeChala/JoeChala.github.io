@@ -96,16 +96,9 @@
                     flut = `Unsafe ingredients ${i} used`;
                     allg = false;
                     break;
-                } else if (health.includes(i)) {
-                    if (i === "hydrogenated oils") {
-                        healthissue = "Cholesterol";
-                    } else if (i === "sugar") {
-                        healthissue = "Diabetes";
-                    }
-                    flut = `${i} can cause problems if you have ${healthissue}. If you don't, then consume it with precaution in controlled quantity.`;
-                    allg = false;
-                    break;
-                } else if (allergies.includes(i)) {
+                    
+                } 
+                else if (allergies.includes(i)) {
                     if (i === "arachidonic acid") {
                         allergens = "Peanut";
                     } else if (i === "lactoglobulin") {
@@ -115,13 +108,20 @@
                     allg = false;
                     break;
                 }
+                else if (health.includes(i)) {
+                    if (i === "hydrogenated oils") {
+                        healthissue = "Cholesterol";
+                    } else if (i === "sugar") {
+                        healthissue = "Diabetes";
+                    }
+                    flut = `${i} can cause problems if you have ${healthissue}. If you don't, then consume it with precaution in controlled quantity.`;
+                    allg = false;
+                    break; 
+                } 
             }
-
             if (allg) {
                 flut = "You are good to go";
             }
-            
-            
         });
 
         startbutton.style.left = "120px";
