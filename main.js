@@ -117,6 +117,7 @@
             if (allg) {
                 flut = "You are good to go";
             }
+            txtbox.style.height = "600px";
             txtbox.textContent = flut;
         });
 
