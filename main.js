@@ -98,12 +98,15 @@
                         allergens = "Lactose";
                     }
                     flut = `${i} can cause problems if you have ${allergens} allergy.`;
+                    allg=false;
+                    break;
             }
             for (let i of tess) {
                 i = i.trim().toLowerCase();
                 if (unsafe.includes(i)) {
                     flut = `Unsafe ingredients ${i} used`;
-                    allg = false;    
+                    allg = false;   
+                    break;
                 } 
                 else if (health.includes(i)) {
                     if (i === "hydrogenated oils") {
