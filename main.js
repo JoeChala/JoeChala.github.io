@@ -75,6 +75,7 @@
         const data = canvas.toDataURL("image/png");
         blob = dataURLtoBlob(data);
         Img.setAttribute("src", data);
+        Img.style.top="5px";
         video.remove();
         canvas.remove();
 
