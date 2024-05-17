@@ -75,7 +75,7 @@
         const data = canvas.toDataURL("image/png");
         blob = dataURLtoBlob(data);
         Img.setAttribute("src", data);
-        Img.style.top="5px";
+        Img.style.top = "5px";
         video.remove();
         canvas.remove();
 
@@ -119,6 +119,8 @@
             if (allg) {
                 flut = "You are good to go";
             }
+            
+            scantext.innerHTML = `${flut}<br><a href="https://www.amazon.in/Midbreak-Almonds-Cookies-Biscuits-Handmade/dp/B0BGY9Q5ZH/ref=sr_1_2?sr=8-2" target="_blank">Healthier alternative: Mid Break-Sugar Free Oatmeal Almonds Cookies</a>`;
         });
 
         startbutton.style.left = "120px";
@@ -140,14 +142,6 @@
                 contibutton.remove();
                 scantext.style.fontSize = "35px";
                 scantext.style.height = "600px";
-                scantext.innerHTML = flut;
-                const para1 = document.createElement('p');
-                para1.innnerHTML = "Healthier alternatives:";
-                const a1 = document.createElement('a');
-                a1.href = "https://www.amazon.in/Midbreak-Almonds-Cookies-Biscuits-Handmade/dp/B0BGY9Q5ZH/ref=sr_1_2?sr=8-2";
-                a1.textContent = "Mid Break-Sugar Free Oatmeal Almonds Cookies";
-                
-                
                 ev.preventDefault();
             },
             false,
@@ -170,4 +164,3 @@
 
     window.addEventListener("load", startup, false);
 })();
-
