@@ -145,6 +145,10 @@
                 if(curchem == "sugar"){
                  scantext.innerHTML = `${flut}<br><a href="https://www.amazon.in/Midbreak-Almonds-Cookies-Biscuits-Handmade/dp/B0BGY9Q5ZH/ref=sr_1_2?sr=8-2" target="_blank">Healthier alternative: Mid Break-Sugar Free Oatmeal Almonds Cookies</a>`;
                 }
+                else{
+                    scantext.innerHTML = flut; 
+                    }
+                    
                 scantext.style.fontSize = "35px";
                 scantext.style.height = "600px";
                 ev.preventDefault();
