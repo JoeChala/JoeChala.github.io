@@ -17,6 +17,7 @@
     let startbutton = null;
     let blob = null;
     let Img = null;
+    let curchem='';
 
     function startup() {
         video = document.getElementById("video");
@@ -113,6 +114,7 @@
                         healthissue = "Cholesterol";
                     } else if (i === "sugar") {
                         healthissue = "Diabetes";
+                        curchem = "sugar"
                     }
                     flut = `${i} can cause problems if you have ${healthissue}. If you don't, then consume it with precaution in controlled quantity.`;
                     allg = false;
@@ -141,7 +143,9 @@
                 Img.remove();
                 startbutton.remove();
                 contibutton.remove();
-                scantext.innerHTML = `${flut}<br><a href="https://www.amazon.in/Midbreak-Almonds-Cookies-Biscuits-Handmade/dp/B0BGY9Q5ZH/ref=sr_1_2?sr=8-2" target="_blank">Healthier alternative: Mid Break-Sugar Free Oatmeal Almonds Cookies</a>`;
+                if(curchem == "sugar"){
+                 scantext.innerHTML = `${flut}<br><a href="https://www.amazon.in/Midbreak-Almonds-Cookies-Biscuits-Handmade/dp/B0BGY9Q5ZH/ref=sr_1_2?sr=8-2" target="_blank">Healthier alternative: Mid Break-Sugar Free Oatmeal Almonds Cookies</a>`;
+                }
                 scantext.style.fontSize = "35px";
                 scantext.style.height = "600px";
                 ev.preventDefault();
