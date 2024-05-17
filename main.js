@@ -20,6 +20,7 @@
     function startup() {
         video = document.getElementById("video");
         canvas = document.getElementById("canvas");
+        txtbox = document.getElementById("textpara");
         contibutton = document.getElementById("contibutton");
         scantext = document.getElementById("scannedtext");
         startbutton = document.getElementById("startbutton");
@@ -85,11 +86,11 @@
             console.log(tess);
             let allergens = '';
             let healthissue = '';
-
+            let flut ='';
             for (let i of tess) {
                 i = i.trim().toLowerCase();
                 if (unsafe.includes(i)) {
-                    console.log(`Unsafe ingredients ${i} used`);
+                    flut = `Unsafe ingredients ${i} used`;
                     allg = false;
                     break;
                 } else if (health.includes(i)) {
@@ -98,7 +99,7 @@
                     } else if (i === "sugar") {
                         healthissue = "Diabetes";
                     }
-                    console.log(`${i} can cause problems if you have ${healthissue}. If you don't, then consume it with precaution in controlled quantity.`);
+                    flut = `${i} can cause problems if you have ${healthissue}. If you don't, then consume it with precaution in controlled quantity.`;
                     allg = false;
                     break;
                 } else if (allergies.includes(i)) {
@@ -107,15 +108,16 @@
                     } else if (i === "lactoglobulin") {
                         allergens = "Lactose";
                     }
-                    console.log(`${i} can cause problems if you have ${allergens} allergy.`);
+                    flut = `${i} can cause problems if you have ${allergens} allergy.`;
                     allg = false;
                     break;
                 }
             }
 
             if (allg) {
-                console.log("You are good to go");
+                flut = "You are good to go";
             }
+            txtbox.textContent = flut;
         });
 
         startbutton.style.left = "120px";
