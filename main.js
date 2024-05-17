@@ -9,10 +9,10 @@
     let scantext=null;
     let but2 = null;
     let sendval = '';
-    let unsafe = ["Brominated Vegetable Oil", "Butylated Hydroxyanisole", "Rhodamine B", "Calcium Sorbate"];
+    let unsafe = ["brominated vegetable oil", "butylated hydroxyanisole", "rhodamine b", "calcium sorbate"];
     let diet = ["Vegan", "Keto", "Vegetarian", "Non-Vegetarian"];
-    let health = ["Sugar", "Hydrogenated oils"];
-    let allergies = ["Lactoglobulin", "Arachidonic acid"];
+    let health = ["sugar", "hydrogenated oils"];
+    let allergies = ["lactoglobulin", "arachidonic acid"];
     let allg = true;
     let recogtext ='';
     let startbutton = null;
@@ -89,30 +89,37 @@
         tess[0] = tess[0].split(':')[1];
         console.log(tess);
         let allergens;
+        let healthissue;
         for (let i of tess) {
           i = i.trim();
-          if (unsafe.includes(i)) {
+          if (unsafe.includes(i.toLowerCase())) {
             console.log(`Unsafe ingredients ${i} used`);
             allg = false;
             break;
           } else if (health.includes(i)) {
-            console.log(`Contains elements such as ${i} that could harm your personal health`);
+            if(i.toLowerCase()=="hydrogenated oil"){
+                healthissue = "Chloestrol;
+            }
+            else if(i.toLowerCase()=="sugar"){
+            healthissue = "Diabetes;
+            }
+            console.log(`${i} can cause problem to a you if you have ${healthissue}, if you don't then consume it with precaution in controlled quantity`);
             allg =false;
             break;
           } else if (allergies.includes(i)) {
-            if(i == "Arachidonic acid"){
+            if(i.toLowerCase() == "arachidonic acid"){
               allergens = "Peanut";
             }
-            if(i == "Lactoglobulin"){
-              allergens = "Lactose"
+            if(i.toLowerCase() == "lactoglobulin"){
+              allergens = "Lactose";
             }
-            console.log(`Contains harmful ${allergens} allergen ${i}`);
+            console.log(`${i} can cause problem to if you have ${allergens} allergy`);
             allg=false;
             break;
           }
         }
         if(allg == true){
-          console.log("All Good")
+          console.log("You are good to go");
         }
       });
 
