@@ -7,7 +7,7 @@
     let scantext = null;
     let contibutton = null;
     let sendval = '';
-    let flut ='';
+    let flut = '';
     let unsafe = ["brominated vegetable oil", "butylated hydroxyanisole", "rhodamine b", "calcium sorbate"];
     let diet = ["Vegan", "Keto", "Vegetarian", "Non-Vegetarian"];
     let health = ["sugar", "hydrogenated oils"];
@@ -119,6 +119,7 @@
                 flut = "You are good to go";
             }
             
+            scantext.textContent = flut;
         });
 
         startbutton.style.left = "120px";
