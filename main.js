@@ -20,7 +20,7 @@
     function startup() {
         video = document.getElementById("video");
         canvas = document.getElementById("canvas");
-        txtbox = document.getElementById("textpara");
+        txtbox = document.getElementById("textbox");
         contibutton = document.getElementById("contibutton");
         scantext = document.getElementById("scannedtext");
         startbutton = document.getElementById("startbutton");
@@ -134,9 +134,10 @@
         contibutton.addEventListener(
             "click",
             (ev) => {
-                var a = document.createElement('a');
-                a.href = "scanresults.html";
-                a.click();
+                Img.remove();
+                startbutton.remove();
+                contibutton.remove();
+                scantext.remove();
                 ev.preventDefault();
             },
             false,
