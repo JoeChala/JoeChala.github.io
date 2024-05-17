@@ -118,8 +118,6 @@
             if (allg) {
                 flut = "You are good to go";
             }
-            
-            scantext.textContent = flut;
         });
 
         startbutton.style.left = "120px";
@@ -139,6 +137,7 @@
                 Img.remove();
                 startbutton.remove();
                 contibutton.remove();
+                scantext.style.height = "600px";
                 scantext.textContent = flut;
                 ev.preventDefault();
             },
