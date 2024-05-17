@@ -74,6 +74,7 @@
         context.drawImage(video, 0, 0, width, height);
         const data = canvas.toDataURL("image/png");
         blob = dataURLtoBlob(data);
+    
         Img.setAttribute("src", data);
         Img.style.top = "5px";
         video.remove();
@@ -81,7 +82,7 @@
 
         Tesseract.recognize(blob).then(({ data: { text: ocrText } }) => {
             sendval = ocrText;
-            scantext.textContent = sendval;
+            scantext.innerHTML = sendval;
             recogtext = sendval.replace('\n', '');
             let tess = recogtext.split(',');
             tess[0] = tess[0].split(':')[1].trim();
@@ -120,7 +121,7 @@
                 flut = "You are good to go";
             }
             
-            scantext.innerHTML = `${flut}<br><a href="https://www.amazon.in/Midbreak-Almonds-Cookies-Biscuits-Handmade/dp/B0BGY9Q5ZH/ref=sr_1_2?sr=8-2" target="_blank">Healthier alternative: Mid Break-Sugar Free Oatmeal Almonds Cookies</a>`;
+            
         });
 
         startbutton.style.left = "120px";
@@ -140,6 +141,7 @@
                 Img.remove();
                 startbutton.remove();
                 contibutton.remove();
+                scantext.innerHTML = `${flut}<br><a href="https://www.amazon.in/Midbreak-Almonds-Cookies-Biscuits-Handmade/dp/B0BGY9Q5ZH/ref=sr_1_2?sr=8-2" target="_blank">Healthier alternative: Mid Break-Sugar Free Oatmeal Almonds Cookies</a>`;
                 scantext.style.fontSize = "35px";
                 scantext.style.height = "600px";
                 ev.preventDefault();
@@ -147,6 +149,7 @@
             false,
         );
     }
+    
 
     function dataURLtoBlob(dataURL) {
         const parts = dataURL.split(';base64,');
