@@ -10,7 +10,7 @@
     let flut = '';
     let unsafe = ["brominated vegetable oil", "butylated hydroxyanisole", "rhodamine b", "calcium sorbate"];
     let diet = ["Vegan", "Keto", "Vegetarian", "Non-Vegetarian"];
-    let health = ["fructose", "hydrogenated oils"];
+    let health = ["sugar", "hydrogenated oils"];
     let allergies = ["lactoglobulin", "arachidonic acid"];
     let allg = true;
     let recogtext = '';
@@ -90,22 +90,21 @@
             console.log(tess);
             let allergens = '';
             let healthissue = '';
-            
-            for (let i of tess) {
-                i = i.trim().toLowerCase();
-                if (unsafe.includes(i)) {
-                    flut = `Unsafe ingredients ${i} used`;
-                    allg = false;    
-                } 
-                else if (allergies.includes(i)) {
+            for(let i of tess){
+                if (allergies.includes(i)) {
                     if (i === "arachidonic acid") {
                         allergens = "Peanut";
                     } else if (i === "lactoglobulin") {
                         allergens = "Lactose";
                     }
                     flut = `${i} can cause problems if you have ${allergens} allergy.`;
-                    allg = false;
-                }
+            }
+            for (let i of tess) {
+                i = i.trim().toLowerCase();
+                if (unsafe.includes(i)) {
+                    flut = `Unsafe ingredients ${i} used`;
+                    allg = false;    
+                } 
                 else if (health.includes(i)) {
                     if (i === "hydrogenated oils") {
                         healthissue = "Cholesterol";
@@ -115,6 +114,7 @@
                     }
                     flut = `${i} can cause problems if you have ${healthissue}. If you don't, then consume it with precaution in controlled quantity.`;
                     allg = false;
+                    break;
                 } 
             }
             if (allg) {
