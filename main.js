@@ -20,7 +20,7 @@
     function startup() {
         video = document.getElementById("video");
         canvas = document.getElementById("canvas");
-        txtbox = document.getElementById("textbox");
+        txtbox = document.getElementById("txtbox");
         contibutton = document.getElementById("contibutton");
         scantext = document.getElementById("scannedtext");
         startbutton = document.getElementById("startbutton");
