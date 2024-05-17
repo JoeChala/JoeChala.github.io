@@ -94,10 +94,8 @@
             for (let i of tess) {
                 i = i.trim().toLowerCase();
                 if (unsafe.includes(i)) {
-                    flut = `Unsafe ingredients ${i} used`;
-                    allg = false;
-                    break;
-                    
+                    flut += `Unsafe ingredients ${i} used`;
+                    allg = false;    
                 } 
                 else if (allergies.includes(i)) {
                     if (i === "arachidonic acid") {
@@ -105,9 +103,8 @@
                     } else if (i === "lactoglobulin") {
                         allergens = "Lactose";
                     }
-                    flut = `${i} can cause problems if you have ${allergens} allergy.`;
+                    flut += `${i} can cause problems if you have ${allergens} allergy.`;
                     allg = false;
-                    break;
                 }
                 else if (health.includes(i)) {
                     if (i === "hydrogenated oils") {
@@ -116,9 +113,8 @@
                         healthissue = "Diabetes";
                         curchem = "sugar"
                     }
-                    flut = `${i} can cause problems if you have ${healthissue}. If you don't, then consume it with precaution in controlled quantity.`;
+                    flut += `${i} can cause problems if you have ${healthissue}. If you don't, then consume it with precaution in controlled quantity.`;
                     allg = false;
-                    break; 
                 } 
             }
             if (allg) {
