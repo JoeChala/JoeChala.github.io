@@ -141,6 +141,13 @@
                 scantext.style.fontSize = "35px";
                 scantext.style.height = "600px";
                 scantext.innerHTML = flut;
+                const para1 = document.createElement('p');
+                para1.innnerHTML = "Healthier alternatives:";
+                const a1 = document.createElement('a');
+                a1.href = "https://www.amazon.in/Midbreak-Almonds-Cookies-Biscuits-Handmade/dp/B0BGY9Q5ZH/ref=sr_1_2?sr=8-2";
+                a1.textContent = "Mid Break-Sugar Free Oatmeal Almonds Cookies";
+                
+                
                 ev.preventDefault();
             },
             false,
