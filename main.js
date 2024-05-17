@@ -117,9 +117,7 @@
             if (allg) {
                 flut = "You are good to go";
             }
-            txtbox.backgroundBox = "grey";
-            txtbox.style.height = "600px";
-            txtbox.textContent = flut;
+            
         });
 
         startbutton.style.left = "120px";
@@ -140,6 +138,9 @@
                 startbutton.remove();
                 contibutton.remove();
                 scantext.remove();
+                txtbox.backgroundBox = "grey";
+            txtbox.style.height = "600px";
+            txtbox.textContent = flut;
                 ev.preventDefault();
             },
             false,
