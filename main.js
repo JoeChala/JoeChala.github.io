@@ -138,10 +138,7 @@
                 Img.remove();
                 startbutton.remove();
                 contibutton.remove();
-                scantext.remove();
-                txtbox.backgroundBox = "grey";
-                txtbox.style.height = "600px";
-                txtbox.textContent = flut;
+                scantext.textContent = flut;
                 ev.preventDefault();
             },
             false,
