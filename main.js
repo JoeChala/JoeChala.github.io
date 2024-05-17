@@ -6,30 +6,29 @@
     let streaming = false;
     let video = null;
     let canvas = null;
-    let scantext=null;
-    let but2 = null;
+    let scantext = null;
+    let contibutton = null;
     let sendval = '';
     let unsafe = ["brominated vegetable oil", "butylated hydroxyanisole", "rhodamine b", "calcium sorbate"];
     let diet = ["Vegan", "Keto", "Vegetarian", "Non-Vegetarian"];
     let health = ["sugar", "hydrogenated oils"];
     let allergies = ["lactoglobulin", "arachidonic acid"];
     let allg = true;
-    let recogtext ='';
+    let recogtext = '';
     let startbutton = null;
+    let blob = null;
+    let Img = null;
   
     function startup() {
-     
       video = document.getElementById("video");
       canvas = document.getElementById("canvas");
       contibutton = document.getElementById("contibutton");
       scantext = document.getElementById("scannedtext");
       startbutton = document.getElementById("startbutton");
-      //console.log(gg);
       startbutton.style.left = "400px";
       contibutton.style.left = "620px";
       startbutton.style.top = "1300px";
       contibutton.style.top = "1300px";
-      
       Img = document.getElementById("stillImg");
   
       navigator.mediaDevices
@@ -47,16 +46,13 @@
         (ev) => {
           if (!streaming) {
             height = video.videoHeight / (video.videoWidth / width);
-  
             if (isNaN(height)) {
               height = width / (4 / 3);
             }
-  
             video.setAttribute("width", width);
             video.setAttribute("height", height);
             canvas.setAttribute("width", width);
             canvas.setAttribute("height", height);
-            
             streaming = true;
           }
         },
@@ -78,53 +74,53 @@
       context.drawImage(video, 0, 0, width, height);
       const data = canvas.toDataURL("image/png");
       blob = dataURLtoBlob(data);
-      Img.setAttribute("src",data);
+      Img.setAttribute("src", data);
       video.remove();
       canvas.remove();
-      Tesseract.recognize(blob).then(({data: {text: ocrText}}) =>  {
+      
+      Tesseract.recognize(blob).then(({ data: { text: ocrText } }) => {
         sendval = ocrText;
         scantext.textContent = sendval;
-        recogtext= sendval.replace('\n', '');
+        recogtext = sendval.replace('\n', '');
         let tess = recogtext.split(',');
-        tess[0] = tess[0].split(':')[1];
+        tess[0] = tess[0].split(':')[1].trim();
         console.log(tess);
-        let allergens ='';
-        let healthissue='';
+        let allergens = '';
+        let healthissue = '';
+        
         for (let i of tess) {
-          i = i.trim();
-          if (unsafe.includes(i.toLowerCase())) {
+          i = i.trim().toLowerCase();
+          if (unsafe.includes(i)) {
             console.log(`Unsafe ingredients ${i} used`);
             allg = false;
             break;
-          } else if (health.includes(i.toLowerCase())) {
-            if(i.toLowerCase()=="hydrogenated oil"){
-                healthissue = "Chloestrol";
+          } else if (health.includes(i)) {
+            if (i === "hydrogenated oils") {
+                healthissue = "Cholesterol";
+            } else if (i === "sugar") {
+                healthissue = "Diabetes";
             }
-            else if(i.toLowerCase()=="sugar"){
-            healthissue = "Diabetes;
-            }
-            console.log(`${i} can cause problem to a you if you have ${healthissue}, if you don't then consume it with precaution in controlled quantity`);
-            allg =false;
+            console.log(`${i} can cause problems if you have ${healthissue}. If you don't, then consume it with precaution in controlled quantity.`);
+            allg = false;
             break;
           } else if (allergies.includes(i)) {
-            if(i.toLowerCase() == "arachidonic acid"){
+            if (i === "arachidonic acid") {
               allergens = "Peanut";
-            }
-            if(i.toLowerCase() == "lactoglobulin"){
+            } else if (i === "lactoglobulin") {
               allergens = "Lactose";
             }
-            console.log(`${i} can cause problem to if you have ${allergens} allergy`);
-            allg=false;
+            console.log(`${i} can cause problems if you have ${allergens} allergy.`);
+            allg = false;
             break;
           }
         }
-        if(allg == true){
+        
+        if (allg) {
           console.log("You are good to go");
         }
       });
 
-      
-      startbutton.style.left="120px";
+      startbutton.style.left = "120px";
       startbutton.textContent = "Scan Again";
       contibutton.style.backgroundColor = "#6153BD";
       startbutton.addEventListener(
@@ -140,14 +136,13 @@
         (ev) => {
           var a = document.createElement('a');
           a.href = "scanresults.html";
-          a.click()
-          
+          a.click();
           ev.preventDefault();
         },
-        false,);
-    } 
+        false,
+      );
+    }
     
-
     function dataURLtoBlob(dataURL) {
       const parts = dataURL.split(';base64,');
       const contentType = parts[0].split(':')[1];
@@ -160,8 +155,7 @@
       }
 
       return new Blob([uInt8Array], { type: contentType });
-  }
+    }
+
     window.addEventListener("load", startup, false);
-  })();
-  
- 
+})();
