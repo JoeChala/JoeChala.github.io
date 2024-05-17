@@ -7,6 +7,7 @@
     let scantext = null;
     let contibutton = null;
     let sendval = '';
+    let flut ='';
     let unsafe = ["brominated vegetable oil", "butylated hydroxyanisole", "rhodamine b", "calcium sorbate"];
     let diet = ["Vegan", "Keto", "Vegetarian", "Non-Vegetarian"];
     let health = ["sugar", "hydrogenated oils"];
@@ -86,7 +87,7 @@
             console.log(tess);
             let allergens = '';
             let healthissue = '';
-            let flut ='';
+            
             for (let i of tess) {
                 i = i.trim().toLowerCase();
                 if (unsafe.includes(i)) {
@@ -139,8 +140,8 @@
                 contibutton.remove();
                 scantext.remove();
                 txtbox.backgroundBox = "grey";
-            txtbox.style.height = "600px";
-            txtbox.textContent = flut;
+                txtbox.style.height = "600px";
+                txtbox.textContent = flut;
                 ev.preventDefault();
             },
             false,
