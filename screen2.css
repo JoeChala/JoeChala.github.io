@@ -4,6 +4,11 @@
     background-color: #D9D9D9;
     border-radius: 15px;
 }
+#txtbox{
+    font-size: 25px;
+    color: black;
+    width: 100%;
+        }
 #txt1{
     font-size: 45px;
     font-family: 'Urbanist';
@@ -13,7 +18,7 @@
 #scanAgain{
     position: absolute;
     height: 60px;
-    left: 170px;
+    left: 370px;
     top: 1700px;
     width: 200px;
     padding: 30px;
