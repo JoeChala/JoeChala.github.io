@@ -138,7 +138,7 @@
                 startbutton.remove();
                 contibutton.remove();
                 scantext.style.height = "600px";
-                scantext.textContent = flut;
+                scantext.innerHTML = flut;
                 ev.preventDefault();
             },
             false,
