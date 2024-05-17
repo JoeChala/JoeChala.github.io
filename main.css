@@ -13,15 +13,11 @@ body{
   
   .camera {
     width: 100%;
-    height: 1800px;
     display: inline-block;
   }
   #stillImg{
     width: 100%;
     height: 800px;
-  }
-  #txtbox{
-    width: 100%;
   }
   #startbutton {
     display: block;
