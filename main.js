@@ -6,34 +6,32 @@
     let canvas = null;
     let scantext = null;
     let contibutton = null;
+    let startbutton = null;
+    let Img = null;
+    let blob = null;
     let sendval = '';
     let flut = '';
-    let unsafe = ["brominated vegetable oil", "butylated hydroxyanisole", "rhodamine b", "calcium sorbate"];
-    let diet = ["Vegan", "Keto", "Vegetarian", "Non-Vegetarian"];
-    let health = ["sugar", "hydrogenated oils"];
-    let allergies = ["lactoglobulin", "arachidonic acid"];
+    const unsafe = ["Brominated Vegetable Oil", "Butylated Hydroxyanisole", "Rhodamine B", "Calcium Sorbate"];
+    const health = ["Sugar", "Hydrogenated oils"];
+    const allergies = ["Lactoglobulin", "Arachidonic acid"];
     let allg = true;
     let recogtext = '';
-    let startbutton = null;
-    let blob = null;
-    let Img = null;
-    let curchem='';
 
     function startup() {
         video = document.getElementById("video");
         canvas = document.getElementById("canvas");
-        txtbox = document.getElementById("txtbox");
         contibutton = document.getElementById("contibutton");
         scantext = document.getElementById("scannedtext");
         startbutton = document.getElementById("startbutton");
+        Img = document.getElementById("stillImg");
+
         startbutton.style.left = "400px";
         contibutton.style.left = "620px";
         startbutton.style.top = "1300px";
         contibutton.style.top = "1300px";
-        Img = document.getElementById("stillImg");
 
         navigator.mediaDevices
-            .getUserMedia({ video: { facingMode: "environment" }, audio: false })
+            .getUserMedia({ video: true, audio: false })
             .then((stream) => {
                 video.srcObject = stream;
                 video.play();
@@ -47,17 +45,20 @@
             (ev) => {
                 if (!streaming) {
                     height = video.videoHeight / (video.videoWidth / width);
+
                     if (isNaN(height)) {
                         height = width / (4 / 3);
                     }
+
                     video.setAttribute("width", width);
                     video.setAttribute("height", height);
                     canvas.setAttribute("width", width);
                     canvas.setAttribute("height", height);
+
                     streaming = true;
                 }
             },
-            false,
+            false
         );
 
         startbutton.addEventListener(
@@ -66,7 +67,7 @@
                 takepicture();
                 ev.preventDefault();
             },
-            false,
+            false
         );
     }
 
@@ -75,12 +76,9 @@
         context.drawImage(video, 0, 0, width, height);
         const data = canvas.toDataURL("image/png");
         blob = dataURLtoBlob(data);
-    
         Img.setAttribute("src", data);
-        Img.style.top = "5px";
         video.remove();
         canvas.remove();
-
         Tesseract.recognize(blob).then(({ data: { text: ocrText } }) => {
             sendval = ocrText;
             scantext.innerHTML = sendval;
@@ -88,40 +86,31 @@
             let tess = recogtext.split(',');
             tess[0] = tess[0].split(':')[1].trim();
             console.log(tess);
-            let allergens = '';
-            let healthissue = '';
-            for(let i of tess){
-                if (allergies.includes(i)) {
-                    if (i === "arachidonic acid") {
-                        allergens = "Peanut";
-                    } else if (i === "lactoglobulin") {
-                        allergens = "Lactose";
-                    }
-                    flut = `${i} can cause problems if you have ${allergens} allergy.`;
-                    allg=false;
-                    break;
-            }
+            let allergens;
             for (let i of tess) {
-                i = i.trim().toLowerCase();
+                i = i.trim();
                 if (unsafe.includes(i)) {
-                    flut = `Unsafe ingredients ${i} used`;
-                    allg = false;   
-                    break;
-                } 
-                else if (health.includes(i)) {
-                    if (i === "hydrogenated oils") {
-                        healthissue = "Cholesterol";
-                    } else if (i === "sugar") {
-                        healthissue = "Diabetes";
-                        curchem = "sugar";
-                    }
-                    flut = `${i} can cause problems if you have ${healthissue}. If you don't, then consume it with precaution in controlled quantity.`;
+                    flut = `Unsafe ingredient ${i} used`;
                     allg = false;
                     break;
-                } 
+                } else if (health.includes(i)) {
+                    flut = `Contains elements such as ${i} that could harm your personal health`;
+                    allg = false;
+                    break;
+                } else if (allergies.includes(i)) {
+                    if (i === "Arachidonic acid") {
+                        allergens = "Peanut";
+                    }
+                    if (i === "Lactoglobulin") {
+                        allergens = "Lactose";
+                    }
+                    flut = `Contains harmful ${allergens} allergen ${i}`;
+                    allg = false;
+                    break;
+                }
             }
             if (allg) {
-                flut = "You are good to go";
+                console.log("All Good");
             }
         });
 
@@ -134,29 +123,17 @@
                 location.reload();
                 ev.preventDefault();
             },
-            false,
+            false
         );
         contibutton.addEventListener(
             "click",
             (ev) => {
-                Img.remove();
-                startbutton.remove();
-                contibutton.remove();
-                if(curchem == "sugar"){
-                 scantext.innerHTML = `${flut}<br><a href="https://www.amazon.in/Midbreak-Almonds-Cookies-Biscuits-Handmade/dp/B0BGY9Q5ZH/ref=sr_1_2?sr=8-2" target="_blank">Healthier alternative: Mid Break-Sugar Free Oatmeal Almonds Cookies</a>`;
-                }
-                else{
-                    scantext.innerHTML = flut; 
-                    }
-                    
-                scantext.style.fontSize = "35px";
-                scantext.style.height = "600px";
+                scantext.innerHTML = flut;
                 ev.preventDefault();
             },
-            false,
+            false
         );
     }
-    
 
     function dataURLtoBlob(dataURL) {
         const parts = dataURL.split(';base64,');
